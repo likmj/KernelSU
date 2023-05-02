@@ -6,9 +6,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-manager:
-    uses: ./.github/workflows/build-manager.yml
-    secrets: inherit
   build-a12-kernel:
     uses: ./.github/workflows/build-kernel-a12.yml
   build-a13-kernel:
@@ -17,7 +14,6 @@ jobs:
     uses: ./.github/workflows/build-kernel-wsa.yml
   release:
     needs: 
-      - build-manager
       - build-a12-kernel
       - build-a13-kernel
       - build-wsa-kernel
@@ -50,7 +46,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            manager/*.apk
             AnyKernel3-*.zip
             boot-images-*/Image-*/*.img.gz
             kernel-WSA*.zip
